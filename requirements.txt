@@ -1,2 +1,2 @@
-wyoming
+wyoming>=1.9
 ovos-plugin-manager
