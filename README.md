@@ -139,10 +139,18 @@ Any OVOS STT plugin implementing `STT` from `ovos_plugin_manager.templates.stt`:
 - `ovos-stt-plugin-chromium` — Chrome/Chromium's Web Speech API
 - `ovos-stt-plugin-pocketsphinx` — CMU PocketSphinx
 - `ovos-stt-plugin-whispercpp` — Whisper.cpp binding
-- `ovos-stt-plugin-faster-whisper` — CTranslate2-accelerated Whisper
+- `ovos-stt-plugin-fasterwhisper` — CTranslate2-accelerated Whisper
 - `ovos-stt-plugin-google` — Google Cloud Speech-to-Text
 - `ovos-stt-plugin-azure` — Microsoft Azure Speech
 - `ovos-stt-plugin-amazon` — Amazon Transcribe
+
+## Documentation
+
+Detailed docs live in [`docs/`](docs/index.md):
+
+- [Configuration](docs/configuration.md)
+- [Home Assistant](docs/home_assistant.md)
+- [Wyoming protocol](docs/protocol.md)
 
 ## Credits
 
