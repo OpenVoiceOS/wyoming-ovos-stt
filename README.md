@@ -27,7 +27,7 @@ Expose any [OpenVoiceOS](https://openvoiceos.org) STT plugin as a [Wyoming proto
 
 ## Features
 
-- **Wyoming streaming transcript envelope** — Sends `TranscriptStart` / `Transcript` / `TranscriptStop` (Wyoming v1.7+ compatible)
+- **Single `Transcript` response** — OVOS STT plugins are non-streaming, so the full text is returned in one `Transcript` (matching the `wyoming-faster-whisper` reference)
 - **Automatic audio conversion** — All incoming audio is converted to 16 kHz / 16-bit / mono PCM via `AudioChunkConverter`
 - **Thread-safe** — Blocking `stt.execute()` is offloaded via `asyncio.to_thread()` so the event loop stays responsive
 - **Language propagation** — Reads `language` from `Transcribe` event and populates it on `Transcript`
@@ -124,9 +124,7 @@ Client → AudioStart(rate=16000, width=2, channels=1)
        → AudioChunk (PCM bytes)
        → AudioChunk ...
        → AudioStop
-Server → TranscriptStart(language="en-US")
-       → Transcript(text="hello world", language="en-US")
-       → TranscriptStop
+Server → Transcript(text="hello world", language="en-US")
 ```
 
 The connection is closed after each transcription (single-use handler pattern, matching the upstream `wyoming-faster-whisper` reference). Audio must be 16 kHz / 16-bit / mono PCM; the bridge converts automatically.

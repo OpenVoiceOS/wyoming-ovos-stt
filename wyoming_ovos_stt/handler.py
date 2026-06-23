@@ -2,7 +2,7 @@ import asyncio
 import logging
 
 from speech_recognition import AudioData
-from wyoming.asr import Transcribe, Transcript, TranscriptStart, TranscriptStop
+from wyoming.asr import Transcribe, Transcript
 from wyoming.audio import AudioChunk, AudioChunkConverter, AudioStop
 from wyoming.error import Error
 from wyoming.event import Event
@@ -18,12 +18,13 @@ _LOGGER = logging.getLogger(__name__)
 class STTAPIEventHandler(AsyncEventHandler):
     """Wyoming event handler for STT.
 
-    Accumulates audio chunks, runs transcription on AudioStop,
-    and sends back a Transcript event (with streaming protocol
-    envelope: TranscriptStart / Transcript / TranscriptStop).
+    Accumulates audio chunks, runs transcription on AudioStop, and sends
+    back a single ``Transcript`` event (matching the wyoming-faster-whisper
+    reference; OVOS STT plugins are non-streaming, so no partial
+    ``TranscriptChunk`` envelope is emitted).
 
-    The blocking ``stt.execute()`` call is offloaded to a thread
-    to avoid stalling the event loop.
+    The blocking ``stt.execute()`` call is offloaded to a thread to avoid
+    stalling the event loop.
     """
 
     def __init__(
@@ -67,12 +68,9 @@ class STTAPIEventHandler(AsyncEventHandler):
         return text
 
     async def handle_audio_end(self, text: str) -> None:
-        # Streaming protocol envelope
         await self.write_event(
-            TranscriptStart(language=self._language).event()
+            Transcript(text=text, language=self._language).event()
         )
-        await self.write_event(Transcript(text=text, language=self._language).event())
-        await self.write_event(TranscriptStop().event())
         _LOGGER.debug("Completed request: %r", text[:80])
         self.audio = bytes()
         self._language = None
