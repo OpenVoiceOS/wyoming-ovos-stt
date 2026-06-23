@@ -15,6 +15,7 @@ requires-python = ">=3.10"
 dependencies = [
     "wyoming>=1.9",
     "ovos-plugin-manager",
+    "SpeechRecognition",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
