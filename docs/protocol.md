@@ -38,5 +38,8 @@ loop stays responsive while a slow plugin transcribes.
 
 ## Errors
 
-Any exception while handling an event is reported to the client as a Wyoming
-`Error(text, code)` event, and the connection is closed.
+If an exception occurs while handling an event, the bridge reports it to the
+client as a Wyoming `Error(text, code)` event and closes the connection.
+
+---
+[← Home Assistant](home_assistant.md) · [Home](index.md)

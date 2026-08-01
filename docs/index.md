@@ -10,12 +10,12 @@ incoming Wyoming audio to 16 kHz / 16-bit / mono, runs the plugin's blocking
 
 ## Pages
 
-- **[Configuration](configuration.md)** — selecting a plugin and its
-  `mycroft.conf` settings, and how the language is resolved.
-- **[Home Assistant](home_assistant.md)** — adding the bridge as a Wyoming STT
+- **[Configuration](configuration.md)**: selecting a plugin and its
+  `mycroft.conf` settings, and how the bridge resolves the language.
+- **[Home Assistant](home_assistant.md)**: adding the bridge as a Wyoming STT
   service.
-- **[Wyoming protocol](protocol.md)** — the event flow and why a single
-  `Transcript` is sent (matching `wyoming-faster-whisper`).
+- **[Wyoming protocol](protocol.md)**: the event flow and why the bridge sends
+  a single `Transcript` (matching `wyoming-faster-whisper`).
 
 ## Quickstart
 
@@ -27,8 +27,8 @@ wyoming-ovos-stt --uri tcp://0.0.0.0:7891 \
                  --plugin-name ovos-stt-plugin-server
 ```
 
-Point Home Assistant's Wyoming integration at `host:7891` — see
-[Home Assistant](home_assistant.md).
+Point Home Assistant's Wyoming integration at `host:7891`. See
+[Home Assistant](home_assistant.md) for details.
 
 ## Docker
 

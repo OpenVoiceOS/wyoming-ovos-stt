@@ -27,12 +27,12 @@ Expose any [OpenVoiceOS](https://openvoiceos.org) STT plugin as a [Wyoming proto
 
 ## Features
 
-- **Single `Transcript` response** — OVOS STT plugins are non-streaming, so the full text is returned in one `Transcript` (matching the `wyoming-faster-whisper` reference)
-- **Automatic audio conversion** — All incoming audio is converted to 16 kHz / 16-bit / mono PCM via `AudioChunkConverter`
-- **Thread-safe** — Blocking `stt.execute()` is offloaded via `asyncio.to_thread()` so the event loop stays responsive
-- **Language propagation** — Reads `language` from `Transcribe` event and populates it on `Transcript`
-- **Error reporting** — Failures are sent back as Wyoming `Error` events
-- **Signal handling** — Graceful shutdown on SIGINT/SIGTERM
+- **Single `Transcript` response**: OVOS STT plugins are non-streaming, so the bridge returns the full text in one `Transcript` (matching the `wyoming-faster-whisper` reference).
+- **Automatic audio conversion**: `AudioChunkConverter` converts all incoming audio to 16 kHz / 16-bit / mono PCM.
+- **Thread-safe**: `asyncio.to_thread()` offloads the blocking `stt.execute()` call so the event loop stays responsive.
+- **Language propagation**: The bridge reads `language` from the `Transcribe` event and sets it on the `Transcript`.
+- **Error reporting**: The bridge sends failures back as Wyoming `Error` events.
+- **Signal handling**: The bridge shuts down gracefully on SIGINT/SIGTERM.
 
 ## Installation
 
@@ -103,11 +103,11 @@ wyoming-ovos-stt --uri unix:///run/wyoming-stt.sock \
 
 | Argument | Required | Default | Description |
 |---|---|---|---|
-| `--plugin-name` | Yes | — | OVOS STT plugin module name (e.g. `ovos-stt-plugin-server`) |
-| `--uri` | **Yes** | — | `tcp://HOST:PORT` or `unix:///path` |
+| `--plugin-name` | Yes | none | OVOS STT plugin module name (e.g. `ovos-stt-plugin-server`) |
+| `--uri` | Yes | none | `tcp://HOST:PORT` or `unix:///path` |
 | `--debug` | No | `False` | Enable DEBUG-level logging |
 | `--log-format` | No | `%(levelname)s:%(name)s:%(message)s` | Python log format string |
-| `--version` | No | — | Print version and exit |
+| `--version` | No | none | Print version and exit |
 
 > **Note:** `--uri` is required (unlike the TTS and wake-word bridges which default to `stdio://`) because the STT bridge is designed for persistent TCP connections.
 
@@ -127,22 +127,22 @@ Client → AudioStart(rate=16000, width=2, channels=1)
 Server → Transcript(text="hello world", language="en-US")
 ```
 
-The connection is closed after each transcription (single-use handler pattern, matching the upstream `wyoming-faster-whisper` reference). Audio must be 16 kHz / 16-bit / mono PCM; the bridge converts automatically.
+The connection closes after each transcription (single-use handler pattern, matching the upstream `wyoming-faster-whisper` reference). Audio must be 16 kHz / 16-bit / mono PCM. The bridge converts it automatically.
 
 ## Supported Plugin Types
 
 Any OVOS STT plugin implementing `STT` from `ovos_plugin_manager.templates.stt`:
 
-- `ovos-stt-plugin-server` — proxy to remote STT servers
-- `ovos-stt-plugin-whisper` — OpenAI Whisper (local)
-- `ovos-stt-plugin-vosk` — Vosk offline speech recognition
-- `ovos-stt-plugin-chromium` — Chrome/Chromium's Web Speech API
-- `ovos-stt-plugin-pocketsphinx` — CMU PocketSphinx
-- `ovos-stt-plugin-whispercpp` — Whisper.cpp binding
-- `ovos-stt-plugin-fasterwhisper` — CTranslate2-accelerated Whisper
-- `ovos-stt-plugin-google` — Google Cloud Speech-to-Text
-- `ovos-stt-plugin-azure` — Microsoft Azure Speech
-- `ovos-stt-plugin-amazon` — Amazon Transcribe
+- `ovos-stt-plugin-server`: proxy to remote STT servers
+- `ovos-stt-plugin-whisper`: OpenAI Whisper (local)
+- `ovos-stt-plugin-vosk`: Vosk offline speech recognition
+- `ovos-stt-plugin-chromium`: Chrome/Chromium's Web Speech API
+- `ovos-stt-plugin-pocketsphinx`: CMU PocketSphinx
+- `ovos-stt-plugin-whispercpp`: Whisper.cpp binding
+- `ovos-stt-plugin-fasterwhisper`: CTranslate2-accelerated Whisper
+- `ovos-stt-plugin-google`: Google Cloud Speech-to-Text
+- `ovos-stt-plugin-azure`: Microsoft Azure Speech
+- `ovos-stt-plugin-amazon`: Amazon Transcribe
 
 ## Documentation
 
@@ -151,6 +151,13 @@ Detailed docs live in [`docs/`](docs/index.md):
 - [Configuration](docs/configuration.md)
 - [Home Assistant](docs/home_assistant.md)
 - [Wyoming protocol](docs/protocol.md)
+
+## Related projects
+
+- [wyoming-ovos-tts](https://github.com/OpenVoiceOS/wyoming-ovos-tts): the matching Wyoming bridge for OVOS TTS plugins.
+- [wyoming-ovos-wakeword](https://github.com/OpenVoiceOS/wyoming-ovos-wakeword): the matching Wyoming bridge for OVOS wake-word plugins.
+- [ovos-wyoming-docker](https://github.com/OpenVoiceOS/ovos-wyoming-docker): Docker images that bundle these bridges.
+- [ovos-plugin-manager](https://github.com/OpenVoiceOS/ovos-plugin-manager): loads and manages the OVOS STT plugins this bridge exposes.
 
 ## Credits
 
