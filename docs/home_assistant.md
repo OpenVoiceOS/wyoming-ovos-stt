@@ -30,3 +30,6 @@ bridge does support zeroconf discovery.)
 - Audio is converted to 16 kHz / 16-bit / mono internally, so HA's microphone
   format does not need to match the plugin.
 - Run one bridge process per STT plugin/port if you want to offer several engines.
+
+---
+[← Configuration](configuration.md) · [Home](index.md) · [Wyoming protocol →](protocol.md)
