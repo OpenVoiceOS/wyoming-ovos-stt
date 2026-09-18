@@ -1,13 +1,17 @@
 # Changelog
 
-## [0.2.1a1](https://github.com/OpenVoiceOS/wyoming-ovos-stt/tree/0.2.1a1) (2026-08-01)
+## [0.2.1a2](https://github.com/OpenVoiceOS/wyoming-ovos-stt/tree/0.2.1a2) (2026-09-18)
 
-[Full Changelog](https://github.com/OpenVoiceOS/wyoming-ovos-stt/compare/0.0.1a1...0.2.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/wyoming-ovos-stt/compare/0.2.1a1...0.2.1a2)
 
 **Merged pull requests:**
 
 - docs: add NLnet/NGI0 attribution [\#4](https://github.com/OpenVoiceOS/wyoming-ovos-stt/pull/4) ([JarbasAl](https://github.com/JarbasAl))
 - Configure Renovate [\#2](https://github.com/OpenVoiceOS/wyoming-ovos-stt/pull/2) ([renovate[bot]](https://github.com/apps/renovate))
+
+## [0.2.1a1](https://github.com/OpenVoiceOS/wyoming-ovos-stt/tree/0.2.1a1) (2026-08-01)
+
+[Full Changelog](https://github.com/OpenVoiceOS/wyoming-ovos-stt/compare/0.0.1a1...0.2.1a1)
 
 ## [0.0.1a1](https://github.com/OpenVoiceOS/wyoming-ovos-stt/tree/0.0.1a1) (2026-06-23)
 
