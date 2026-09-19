@@ -1,2 +1,0 @@
-wyoming
-ovos-plugin-manager
